@@ -5,6 +5,12 @@ const app = express();
 const PORT = 8000;
 
 app.use(express.json());
+app.use("/assets", express.static("public"));
+
+app.use((req, res, next) => {
+  req.body.currency = "NPR";
+  next();
+});
 
 app.use("/", indexRouter);
 

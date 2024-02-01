@@ -4,7 +4,16 @@ router.get("/", (req, res) => {
   res.json({ msg: "hello from blog router" });
 });
 
-router.post("/", (req, res, next) => {
+// const userRole = ["user"]; // req.headers
+// const sysRole = ["admin"]; // passed in mw(checkRole)
+// const checkRole = (userRole, sysRole) =>
+// userRole.some((role)=>sysRole.includes(role));
+
+const checkRole = (req, res, next) => {
+  next();
+};
+
+router.post("/", checkRole, (req, res, next) => {
   try {
     const { title } = req.body;
     if (!title) throw new Error("Title is missing");
