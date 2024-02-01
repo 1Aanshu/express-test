@@ -4,8 +4,14 @@ router.get("/", (req, res) => {
   res.json({ msg: "hello from blog router" });
 });
 
-router.post("/", (req, res) => {
-  res.json({ msg: "hello from blog post router" });
+router.post("/", (req, res, next) => {
+  try {
+    const { title } = req.body;
+    if (!title) throw new Error("Title is missing");
+    res.json({ msg: "hello from blog post router" });
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.put("/:id", (req, res) => {

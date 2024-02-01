@@ -8,6 +8,11 @@ app.use(express.json());
 
 app.use("/", indexRouter);
 
+app.use((err, req, res, next) => {
+  err = err ? err.toString() : "Something went wrong";
+  res.status(500).json({ msg: err });
+});
+
 app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}.Url is http://localhost:${PORT}`);
 });
