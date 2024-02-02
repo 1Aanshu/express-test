@@ -9,11 +9,16 @@ router.get("/", (req, res) => {
 // const checkRole = (userRole, sysRole) =>
 // userRole.some((role)=>sysRole.includes(role));
 
-const checkRole = (req, res, next) => {
-  next();
+const checkRole = (sysRole) => {
+  return (req, res, next) => {
+    const userRole = req.headers.role.split(",");
+    const result = sysRole.some((role) => userRole.includes(role));
+    if (!result) throw new Error("Permission Denied");
+    next();
+  };
 };
 
-router.post("/", checkRole, (req, res, next) => {
+router.post("/", checkRole(["admin"]), (req, res, next) => {
   try {
     const { title } = req.body;
     if (!title) throw new Error("Title is missing");
