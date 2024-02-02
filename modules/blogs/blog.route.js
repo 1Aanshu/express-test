@@ -23,12 +23,24 @@ router.post("/", checkRole, (req, res, next) => {
   }
 });
 
-router.put("/:id", (req, res) => {
-  res.json({ msg: "hello from blog put router" });
+router.put("/:id", (req, res, next) => {
+  try {
+    const { title } = req.body;
+    if (!title) throw new Error("Title is missing");
+    res.json({ msg: "hello from blog put router" });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.patch("/:id", (req, res) => {
-  res.json({ msg: "hello from blog patch router" });
+router.patch("/:id", (req, res, next) => {
+  try {
+    const { status } = req.body;
+    if (!status) throw new Error("Status is missing");
+    res.json({ msg: "hello from blog patch router" });
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.delete("/:id", (req, res) => {
