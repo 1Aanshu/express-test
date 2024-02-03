@@ -45,7 +45,7 @@ router.patch("/:id", (req, res, next) => {
     res.json({ msg: "hello from blog patch router" });
   } catch (err) {
     next(err);
-  }
+  }  
 });
 
 router.delete("/:id", (req, res) => {
