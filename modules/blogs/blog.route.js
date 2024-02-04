@@ -22,6 +22,7 @@ router.post("/", checkRole(["admin"]), (req, res, next) => {
   try {
     const { title } = req.body;
     if (!title) throw new Error("Title is missing");
+    console.log(req.body);
     res.json({ msg: "hello from blog post router" });
   } catch (err) {
     next(err);
@@ -45,7 +46,7 @@ router.patch("/:id", (req, res, next) => {
     res.json({ msg: "hello from blog patch router" });
   } catch (err) {
     next(err);
-  }  
+  }
 });
 
 router.delete("/:id", (req, res) => {
